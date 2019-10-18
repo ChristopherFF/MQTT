@@ -9,7 +9,6 @@
         }
         th, td {
             text-align: center;
-            /*padding: 5px;*/
             padding-left: 10px;
             padding-right: 10px;
         }
@@ -28,26 +27,6 @@
     <h3>Showroom/Test site</h3>
     <h3>VRM ID: 0cae7d0df73d</h3>
 
-    <div class="row pt-2">
-        <div class="col-6"><a href="/setMeterState/{{ $vrm_id }}/1/1" class="btn btn-success btn-lg active" role="button" aria-pressed="true">1: On</a></div>
-        <div class="col-6"><a href="/setMeterState/{{ $vrm_id }}/1/0" class="btn btn-danger btn-lg active" role="button" aria-pressed="true">1: Off</a></div>
-    </div>
-
-    <div class="row pt-2">
-        <div class="col-6"><a href="/setMeterState/{{ $vrm_id }}/2/1" class="btn btn-success btn-lg active" role="button" aria-pressed="true">2: On</a></div>
-        <div class="col-6"><a href="/setMeterState/{{ $vrm_id }}/2/0" class="btn btn-danger btn-lg active" role="button" aria-pressed="true">2: Off</a></div>
-    </div>
-
-    <div class="row pt-2">
-        <div class="col-6"><a href="/setMeterState/{{ $vrm_id }}/3/1" class="btn btn-success btn-lg active" role="button" aria-pressed="true">3: On</a></div>
-        <div class="col-6"><a href="/setMeterState/{{ $vrm_id }}/3/0" class="btn btn-danger btn-lg active" role="button" aria-pressed="true">3: Off</a></div>
-    </div>
-
-    <div class="row pt-2">
-        <div class="col-6"><a href="/setMeterState/{{ $vrm_id }}/4/1" class="btn btn-success btn-lg active" role="button" aria-pressed="true">4: On</a></div>
-        <div class="col-6"><a href="/setMeterState/{{ $vrm_id }}/4/0" class="btn btn-danger btn-lg active" role="button" aria-pressed="true">4: Off</a></div>
-    </div>
-
     <table class="mt-5">
         <tr>
             <th>Site Name</th>
@@ -57,6 +36,8 @@
             <th>Time Set</th>
             <th>Reported State</th>
             <th>Reported Time</th>
+            <th>On</th>
+            <th>Off</th>
         </tr>
         @foreach($meters as $meter)
             <tr>
@@ -67,14 +48,13 @@
                 <td>{{ $meter->time_set }}</td>
                 <td>{{ $meter->verified_state }}</td>
                 <td>{{ $meter->time_verified }}</td>
+                <td><a href="/setMeterState/{{ $vrm_id }}/{{ $meter->meter_id }}/1" class="btn btn-success btn-lg active" role="button" aria-pressed="true">{{ $meter->meter_id }}: On</a></td>
+                <td><a href="/setMeterState/{{ $vrm_id }}/{{ $meter->meter_id }}/0" class="btn btn-danger btn-lg active" role="button" aria-pressed="true">{{ $meter->meter_id }}: Off</a></td>
             </tr>
         @endforeach
     </table>
 
 </div>
-
-
-
 
 </body>
 </html>
