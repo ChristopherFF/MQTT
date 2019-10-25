@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\DCMeter;
+use App\Jobs\ProcessMeterCommand;
 use Carbon\Carbon;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Support\Facades\Log;
 use Illuminate\View\View;
 use Salman\Mqtt\Facades\Mqtt;
+use Symfony\Component\Process\Process;
 
 class MeterStateController extends Controller
 {
@@ -34,7 +36,8 @@ class MeterStateController extends Controller
         $topic = "W/" . $vrm_id . "/dcmeter/" . $meter_id . "/State";
         $message = '{"value": ' . $desired_state .'}';
 
-        $output = Mqtt::ConnectAndPublish($topic, $message);
+//        $output = Mqtt::ConnectAndPublish($topic, $message);
+        ProcessMeterCommand::dispatch($topic, $message)->onConnection('redis');
 
         $vrm_id = '0cae7d0df73d';
         $meters = DCMeter::all();
